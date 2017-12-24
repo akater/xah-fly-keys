@@ -1949,6 +1949,12 @@ Version 2017-11-01"
     $buf
     ))
 
+(defun xah-save-buffer-unless-ido (&optional arg)
+  (interactive "p")
+  (if (string= major-mode "minibuffer-inactive-mode")
+      (ido-next-match)
+    (save-buffer arg)))
+
 (defvar xah-recently-closed-buffers nil "alist of recently closed buffers. Each element is (buffer name, file path). The max number to track is controlled by the variable `xah-recently-closed-buffers-max'.")
 
 (defvar xah-recently-closed-buffers-max 40 "The maximum length for `xah-recently-closed-buffers'.")
@@ -3155,7 +3161,7 @@ Version 2017-01-21"
       (define-key xah-fly-key-map (kbd "C-n") 'xah-new-empty-buffer)
       (define-key xah-fly-key-map (kbd "C-S-n") 'make-frame-command)
       (define-key xah-fly-key-map (kbd "C-o") 'find-file)
-      (define-key xah-fly-key-map (kbd "C-s") 'save-buffer)
+      (define-key xah-fly-key-map (kbd "C-s") 'xah-save-buffer-unless-ido)
       (define-key xah-fly-key-map (kbd "C-S-s") 'write-file)
       (define-key xah-fly-key-map (kbd "C-S-t") 'xah-open-last-closed)
       (define-key xah-fly-key-map (kbd "C-v") 'yank)
